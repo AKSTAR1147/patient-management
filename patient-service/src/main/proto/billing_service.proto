@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+//service request and response files can be distributes across files
+option java_package = "billing";
+//code generation puts all the code in a package called billing
+
+
+////service syntax
+//service NameOfTheService{
+//  rpc MethodsThatArePartOfTheService1(InputObject1) returns (ResponseObject1);
+//  rpc MethodsThatArePartOfTheService2(InputObject2) returns (ResponseObject2);
+//}
+service BillingService{
+  rpc CreateBillingAccount(BillingRequest) returns (BillingResponse);
+}
+
+//the input RequestObject and ResponseObject
+//need to specify their structure (MOdel)
+
+message BillingRequest {
+  string patientId = 1;
+  string name = 2;
+  string email = 3;
+}
+
+//the numbers assigned are just unique number
+//to help in the Serialization stuff, not the assigned values
+
+message BillingResponse {
+  string accountId = 1;
+  string status = 2;
+}

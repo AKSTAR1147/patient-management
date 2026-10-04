@@ -1,0 +1,11 @@
+### POST a new patient
+PUT http://localhost:4000/patients/51138abb-3587-4fec-9db8-06ef34e258db
+Content-Type: application/json
+
+{
+  "name":"Anil K",
+  "email":"anil@kaundanyapure.com",
+  "address": "Arvi",
+  "dateOfBirth": "2004-06-09"
+}
+###

@@ -1,0 +1,10 @@
+#GRPC localhost:9001/BillingService/CreateBillingAccount
+#nomenclature
+GRPC 127.0.0.1:9001/BillingService/CreateBillingAccount
+#addressOftheserver/NameofTherService/RpcMethodToCall
+
+{
+  "patientId": "122332",
+  "name":"ak",
+  "email": "akstar@47.com"
+}
