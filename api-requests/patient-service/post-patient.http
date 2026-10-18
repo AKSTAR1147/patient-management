@@ -3,8 +3,8 @@ POST http://localhost:4000/patients
 Content-Type: application/json
 
 {
-  "name":"sirdnsink",
-  "email":"anlassmsk@simp.com",
+  "name":"sirxi",
+  "email":"anlsajsssxmsk@simp.com",
   "address": "maharashtra",
   "dateOfBirth": "2004-11-03"
 }
