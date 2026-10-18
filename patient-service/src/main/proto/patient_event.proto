@@ -1,0 +1,10 @@
+syntax = "proto3";    //setting up the format
+package patient.events;    //to generate all files separate block
+option java_multiple_files = true;  //to have multiple different files
+
+message PatientEvent{
+  string patientId = 1;
+  string name = 2;
+  string email = 3;
+  string eventType = 4;
+}

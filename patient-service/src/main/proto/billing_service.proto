@@ -15,7 +15,7 @@ service BillingService{
   rpc CreateBillingAccount(BillingRequest) returns (BillingResponse);
 }
 
-//the input RequestObject and ResponseObject
+ //the input RequestObject and ResponseObject
 //need to specify their structure (MOdel)
 
 message BillingRequest {

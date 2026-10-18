@@ -3,9 +3,9 @@ POST http://localhost:4000/patients
 Content-Type: application/json
 
 {
-  "name":"Anil",
-  "email":"anil@kaundanAyAapure.com",
-  "address": "Arvi",
-  "dateOfBirth": "2004-06-05"
+  "name":"sirdnsink",
+  "email":"anlassmsk@simp.com",
+  "address": "maharashtra",
+  "dateOfBirth": "2004-11-03"
 }
 ###

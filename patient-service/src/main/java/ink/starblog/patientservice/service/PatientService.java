@@ -4,6 +4,7 @@ package ink.starblog.patientservice.service;
 import ink.starblog.patientservice.dto.PatientRequestDTO;
 import ink.starblog.patientservice.dto.PatientResponseDTO;
 import ink.starblog.patientservice.grpc.BillingServiceGrpcClient;
+import ink.starblog.patientservice.kafka.KafkaProducer;
 import ink.starblog.patientservice.mapper.PatientMapper;
 import ink.starblog.patientservice.model.Patient;
 import ink.starblog.patientservice.repository.PatientRepository;
@@ -19,10 +20,12 @@ import java.util.UUID;
 public class PatientService {
     private final PatientRepository patientRepository;
     private final BillingServiceGrpcClient billingServiceGrpcClient;
+    private final KafkaProducer kafkaProducer;
 
-    PatientService(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient){
+    PatientService(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient, KafkaProducer kafkaProducer ){
         this.patientRepository=patientRepository;
         this.billingServiceGrpcClient=billingServiceGrpcClient;
+        this.kafkaProducer=kafkaProducer;
     }
 
 
@@ -37,6 +40,7 @@ public class PatientService {
         log.info("Patient added with id {}", patient.getId());
         billingServiceGrpcClient.createBillingAccount(patient.getId().toString(), patient.getName(), patient.getEmail());
         log.info("Create Billing Account request sent for name {}",patient.getName());
+        kafkaProducer.sendEvent(patient);
         return PatientMapper.toDTO(patient); //response back with the responseDTO
     }
 
