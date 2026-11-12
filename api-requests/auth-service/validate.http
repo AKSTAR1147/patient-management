@@ -1,0 +1,3 @@
+### GET request to validate tokenvalidate
+GET http://localhost:8765/auth-service/validate
+Authorization: Bearer {{token}}

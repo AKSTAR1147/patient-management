@@ -1,0 +1,11 @@
+### login request to retrieve token
+POST http://localhost:8765/auth-service/login
+Content-type:application/json
+
+
+{
+    "email":"akstarx47@gmail.com",
+    "password":"Akstar@47"
+}
+
+> {% client.global.set("token", response.body.token) %}
