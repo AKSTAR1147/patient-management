@@ -2,18 +2,26 @@
 
 ## Overview
 
-This project consists of three Spring Boot microservices, a PostgreSQL database, Kafka, a Eureka Naming Server, and an API Gateway.
+This project consists of four Spring Boot microservices, PostgreSQL databases, Apache Kafka, a Eureka Naming Server, and an API Gateway.
+
+The API Gateway acts as the single entry point for client HTTP requests, while Eureka handles service registration and discovery. Kafka enables asynchronous event-driven communication between services.
 
 ## Services and Ports
 
-| Component | Port | Purpose |
+| Component | Port / Mapping | Purpose |
 |---|---:|---|
 | API Gateway | `8765` | Entry point for client HTTP requests |
+| Auth Service | `4005` (internal) | Authentication and JWT generation/validation |
 | Patient Service | `4000` | Patient management and Kafka event production |
 | Billing Service — HTTP | `4001` | Billing HTTP endpoints |
 | Billing Service — gRPC | `9001` | Billing gRPC endpoint |
-| Analytics Service | `4002` | Analytics and Kafka event consumption |
+| Analytics Service | `4002:4002` | Analytics and Kafka event consumption |
 | Eureka Naming Server | `8761` | Service registration and discovery |
+| Auth PostgreSQL | `5001:5432` | Auth Service database |
+| Patient PostgreSQL | `5000:5432` | Patient Service database |
+| Kafka | `9092:9092`, `9094:9094` | Event-driven communication |
+
+**Note:** Auth Service does not have a published host port. Its internal port is `4005`, accessible to other containers through Docker networking and Eureka discovery.
 
 ## Eureka Naming Server
 
@@ -24,6 +32,36 @@ Eureka provides service registration and discovery.
 - **Eureka registration URL for host-based applications:** `http://localhost:8761/eureka/`
 - **Eureka registration URL for containers on the same Docker network:** `http://eureka-naming-server:8761/eureka/`
 
+### Registered Service Discovery Names
+
+| Application Name | Eureka Service ID | Instance Port |
+|---|---|---:|
+| API Gateway | `api-gateway` | `8765` |
+| Auth Service | `auth-service` | `4005` |
+| Patient Service | `patient-service` | `4000` |
+| Billing Service | `billing-service` | `4001` |
+| Analytics Service | `analytics-service` | `4002` |
+
+## API Gateway Routing
+
+The API Gateway uses Spring Cloud Gateway and Eureka-based load balancing.
+
+| Incoming Gateway Path | Eureka Discovery URI | Destination |
+|---|---|---|
+| `/auth-service/**` | `lb://auth-service` | Auth Service |
+| `/patient-service/**` | `lb://patient-service` | Patient Service |
+| `/billing-service/**` | `lb://billing-service` | Billing Service |
+| `/analytics-service/**` | `lb://analytics-service` | Analytics Service |
+
+### Example API Requests
+
+All requests enter through the API Gateway at `http://localhost:8765`.
+
+```text
+http://localhost:8765/auth-service/<endpoint>
+http://localhost:8765/patient-service/<endpoint>
+http://localhost:8765/billing-service/<endpoint>
+http://localhost:8765/analytics-service/<endpoint>
 ## API Gateway
 
 The API Gateway is the entry point for client-facing HTTP requests. It routes requests to registered microservices using Eureka service discovery and Spring Cloud LoadBalancer.
