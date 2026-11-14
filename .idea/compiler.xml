@@ -9,8 +9,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
         <module name="eureka-naming-server" />
+        <module name="integration-tests" />
+        <module name="infrastructure" />
       </profile>
-      <profile name="Annotation profile for analytics-service" enabled="true">
+      <profile name="Annotation profile for patient-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -19,14 +21,6 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
         </processorPath>
         <module name="analytics-service" />
-      </profile>
-      <profile name="Annotation profile for patient-service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
-        </processorPath>
         <module name="patient-service" />
         <module name="billing-service" />
       </profile>
@@ -35,6 +29,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.48/lombok-1.18.48.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.48/lombok-1.18.48.jar" />
         </processorPath>
         <module name="auth-service" />
@@ -48,6 +43,8 @@
       <module name="auth-service" options="-parameters" />
       <module name="billing-service" options="-parameters" />
       <module name="eureka-naming-server" options="-parameters" />
+      <module name="infrastructure" options="-parameters" />
+      <module name="integration-tests" options="-parameters" />
       <module name="patient-service" options="-parameters" />
     </option>
   </component>
